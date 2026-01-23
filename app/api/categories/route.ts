@@ -14,7 +14,7 @@ export async function GET() {
 
         // นับจำนวนสินค้าในแต่ละหมวดหมู่
         const categoriesWithCount = await Promise.all(
-            products.map(async (p) => {
+            products.map(async (p: any) => {
                 const count = await prisma.product.count({
                     where: { category: p.category }
                 });
