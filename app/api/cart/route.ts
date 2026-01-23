@@ -56,7 +56,7 @@ export async function GET() {
         }
 
         // แปลงข้อมูลให้ตรงกับ interface ที่ frontend ใช้
-        const cartItems = cart.items.map((item) => ({
+        const cartItems = cart.items.map((item: any) => ({
             id: item.id,
             productId: item.productId,
             name: item.product.name,
