@@ -14,7 +14,7 @@ import { useAlert } from "../Components/AlertToast";
 
 import { Product } from "@/app/type/product";
 
-type View = "dashboard" | "products" | "orders" | "customers";
+type View = "/" | "dashboard" | "products" | "orders" | "customers";
 
 const AdminPage = () => {
     // State จัดการ View ปัจจุบัน (Dashboard, Products, Orders, Customers)
@@ -37,7 +37,7 @@ const AdminPage = () => {
         isOpen: false,
         title: '',
         message: '',
-        onConfirm: () => {},
+        onConfirm: () => { },
     });
     // Alert Toast Hook
     const { showAlert, AlertContainer } = useAlert();
