@@ -185,7 +185,7 @@ export async function POST(request: Request) {
             },
         });
 
-        const cartItems = updatedCart!.items.map((item) => ({
+        const cartItems = updatedCart!.items.map((item: any) => ({
             id: item.id,
             productId: item.productId,
             name: item.product.name,
@@ -300,7 +300,7 @@ export async function PUT(request: Request) {
             },
         });
 
-        const cartItems = cart!.items.map((item) => ({
+        const cartItems = cart!.items.map((item: any) => ({
             id: item.id,
             productId: item.productId,
             name: item.product.name,
@@ -388,7 +388,7 @@ export async function DELETE(request: Request) {
             },
         });
 
-        const cartItems = cart!.items.map((item) => ({
+        const cartItems = cart!.items.map((item: any) => ({
             id: item.id,
             productId: item.productId,
             name: item.product.name,

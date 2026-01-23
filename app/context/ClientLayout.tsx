@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "../Components/navbar";
 import LoginModal from "../Components/login";
@@ -34,13 +34,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <>
 
             {!isAdminRoute && (
-                <Navbar
-                    isScrolled={isScrolled}
-                    isLoading={isLoading}
-                    onLoginClick={() => setAuthModal("login")}
-                    user={user}
-                    onLogout={logout}
-                />
+                <Suspense fallback={<div className="h-[72px] w-full bg-slate-900 fixed top-0 z-40 border-b border-white/5" />}>
+                    <Navbar
+                        isScrolled={isScrolled}
+                        isLoading={isLoading}
+                        onLoginClick={() => setAuthModal("login")}
+                        user={user}
+                        onLogout={logout}
+                    />
+                </Suspense>
             )}
 
             {children}

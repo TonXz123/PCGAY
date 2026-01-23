@@ -1,6 +1,6 @@
 "use client"; // ใช้ Client Side Rendering เพราะมีการใช้ Hook (useState, useEffect)
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Product } from "@/app/type/product"; // นำเข้า Type ของข้อมูลสินค้า
 import { ShoppingCart, Loader2, Check, ChevronLeft, ChevronRight } from "lucide-react"; // นำเข้าไอคอนจาก lucide-react
 import LogoTech from "./logo/logoloop"; // คอมโพเนนต์แสดงโลโก้แบรนด์ต่างๆ แบบเลื่อนได้
@@ -12,7 +12,7 @@ interface ProductHProps {
     title?: string;
 }
 
-const ProductH = ({ category, title = "สินค้าทั้งหมด" }: ProductHProps) => {
+const ProductContent = ({ category, title = "สินค้าทั้งหมด" }: ProductHProps) => {
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search")?.toLowerCase() || "";
     const { user, setAuthModal } = useAuth();
@@ -274,6 +274,19 @@ const ProductH = ({ category, title = "สินค้าทั้งหมด" 
                 </div>
             )}
         </div>
+    );
+};
+
+// Wrapper Component with Suspense
+const ProductH = (props: ProductHProps) => {
+    return (
+        <Suspense fallback={
+            <div className="flex justify-center items-center py-20">
+                <Loader2 className="animate-spin text-white" size={48} />
+            </div>
+        }>
+            <ProductContent {...props} />
+        </Suspense>
     );
 };
 

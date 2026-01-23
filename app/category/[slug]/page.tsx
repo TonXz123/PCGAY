@@ -1,13 +1,17 @@
-"use client";
 import ProductH from "@/app/Components/product";
 import Prism from "@/app/Components/bg";
 
-const CoolingPage = () => {
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+
+    // Format title: "gaming-gear" -> "Gaming Gear"
+    const title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
     return (
         <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white relative overflow-hidden">
             {/* relative z-10: เพื่อให้แสดงอยู่เหนือ background (ถ้ามี) */}
             <div className="relative z-10 max-10xl mx-auto px-5 py-16">
-                <ProductH category="cooling" title="Cooling" />
+                <ProductH category={slug} title={title} />
             </div>
 
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -28,6 +32,4 @@ const CoolingPage = () => {
             </div>
         </div>
     );
-};
-
-export default CoolingPage;
+}
