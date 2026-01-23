@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator client: บอก Prisma ว่าให้สร้าง Client สำหรับภาษาอะไร (ในที่นี้คือ JavaScript/TypeScript)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// datasource db: บอก Prisma ว่าจะต่อ Database อะไร
+datasource db {
+  provider = "postgresql" // ใช้ฐานข้อมูล PostgreSQL
+  // url จะถูกอ่านจาก Environment Variable ใน prisma.config.ts (หรืออ่านจาก .env โดยตรงถ้าไม่ได้ใช้ config file)
+}
+
+// 1. ตารางผู้ใช้ (User)
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  role     String @default("USER")
+
+  // Relations
+  sessions Session[]
+  cart     Cart? // 1 User มีได้ 1 ตะกร้า
+  builds   Build[]
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+// 2. ตาราง Session สำหรับการ Login
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 3. ตารางตะกร้าสินค้า (Cart) - ตัวหลักที่เชื่อม User กับสินค้า
+model Cart {
+  id     String @id @default(uuid())
+  userId String @unique // เชื่อม 1 ต่อ 1 กับ User
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // รายการสินค้าในตะกร้า
+  items CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 4. ตารางรายการสินค้าในตะกร้า (CartItem) - เก็บว่ามีสินค้าอะไรบ้าง จำนวนเท่าไหร่
+model CartItem {
+  id String @id @default(uuid())
+
+  // เชื่อมกับตะกร้า
+  cartId String
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  // เชื่อมกับสินค้า
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  quantity Int @default(1) // จำนวนที่สั่งซื้อ
+
+  @@unique([cartId, productId]) // ป้องกันสินค้าซ้ำในตะกร้าใบเดิม
+}
+
+// 5. ตารางสินค้า (Product)
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  salePrice   Float?
+  image       String
+  category    String // CPU, GPU, RAM, etc.
+  brand       String // ASUS, MSI, etc.
+  stock       Int     @default(0)
+  isBuildSet  Boolean @default(false)
+
+  // Relation กลับไปที่ CartItem
+  cartItems CartItem[]
+  buildItems BuildItem[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+// 6. ตารางรวมชุดจัดสเปก (Build)
+model Build {
+  id          String   @id @default(uuid())
+  name        String   @default("My PC Build")
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // รายการอุปกรณ์ในชุดนี้
+  items       BuildItem[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 7. รายการอุปกรณ์ในแต่ละ Build
+model BuildItem {
+  id        String  @id @default(uuid())
+  buildId   String
+  build     Build   @relation(fields: [buildId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  // เอาไว้ระบุว่าเป็นชิ้นส่วนไหน เช่น "CPU", "GPU"
+  // (ถึงแม้ใน Product จะมี category แล้ว แต่ใส่ไว้ที่นี่จะช่วยให้จัดการ UI ง่ายขึ้น)
+  partType  String
+
+  @@unique([buildId, partType]) // ป้องกันไม่ให้ใส่ CPU ซ้ำ 2 ตัวใน Build เดียวกัน
+}

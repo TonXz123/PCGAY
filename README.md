@@ -34,3 +34,125 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+my-app
+├─ app
+│  ├─ admin
+│  │  └─ page.tsx
+│  ├─ api
+│  │  ├─ auth
+│  │  │  ├─ login
+│  │  │  │  └─ route.ts
+│  │  │  ├─ logout
+│  │  │  │  └─ route.ts
+│  │  │  ├─ me
+│  │  │  │  └─ route.ts
+│  │  │  └─ register
+│  │  │     └─ route.ts
+│  │  ├─ cart
+│  │  │  └─ route.ts
+│  │  ├─ categories
+│  │  │  └─ route.ts
+│  │  ├─ products
+│  │  │  └─ route.ts
+│  │  └─ uploadthing
+│  │     ├─ core.ts
+│  │     └─ route.ts
+│  ├─ blog
+│  │  └─ page.tsx
+│  ├─ cart
+│  │  └─ page.tsx
+│  ├─ category
+│  │  ├─ case
+│  │  │  └─ page.tsx
+│  │  ├─ cooling
+│  │  │  └─ page.tsx
+│  │  ├─ cpu
+│  │  │  └─ page.tsx
+│  │  ├─ gpu
+│  │  │  └─ page.tsx
+│  │  ├─ keyboard
+│  │  │  └─ page.tsx
+│  │  ├─ mainboard
+│  │  │  └─ page.tsx
+│  │  ├─ monitor
+│  │  │  └─ page.tsx
+│  │  ├─ mouse
+│  │  │  └─ page.tsx
+│  │  ├─ psu
+│  │  │  └─ page.tsx
+│  │  ├─ ram
+│  │  │  └─ page.tsx
+│  │  └─ storage
+│  │     └─ page.tsx
+│  ├─ Components
+│  │  ├─ admin
+│  │  │  ├─ AddProductModal.tsx
+│  │  │  ├─ CustomerManagement.tsx
+│  │  │  ├─ DashboardHome.tsx
+│  │  │  ├─ OrderManagement.tsx
+│  │  │  ├─ ProductManagement.tsx
+│  │  │  ├─ Sidebar.tsx
+│  │  │  ├─ StatCard.tsx
+│  │  │  ├─ StatusBadge.tsx
+│  │  │  └─ Topbar.tsx
+│  │  ├─ AlertToast.tsx
+│  │  ├─ banner
+│  │  │  └─ banner.tsx
+│  │  ├─ bg.tsx
+│  │  ├─ blog
+│  │  │  ├─ BlogCard.tsx
+│  │  │  └─ index.ts
+│  │  ├─ ConfirmDialog.tsx
+│  │  ├─ Footer.tsx
+│  │  ├─ login.tsx
+│  │  ├─ logo
+│  │  │  ├─ logoloop.tsx
+│  │  │  └─ logoset.tsx
+│  │  ├─ navbar.tsx
+│  │  ├─ product.tsx
+│  │  ├─ RegisterModal.tsx
+│  │  └─ StatusPage.tsx
+│  ├─ context
+│  │  ├─ AuthContext.tsx
+│  │  └─ ClientLayout.tsx
+│  ├─ data
+│  │  ├─ footerConfig.ts
+│  │  └─ mockData.ts
+│  ├─ favicon.ico
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  ├─ not-found.tsx
+│  ├─ page.tsx
+│  ├─ spec
+│  │  └─ page.tsx
+│  └─ type
+│     ├─ customer.ts
+│     ├─ order.ts
+│     └─ product.ts
+├─ bun.lock
+├─ components.json
+├─ eslint.config.mjs
+├─ lib
+│  ├─ auth.ts
+│  ├─ image-utils.ts
+│  ├─ prisma.ts
+│  ├─ uploadthing.ts
+│  └─ validation.ts
+├─ middleware.ts
+├─ next.config.ts
+├─ package.json
+├─ postcss.config.mjs
+├─ prisma
+│  └─ schema.prisma
+├─ prisma.config.ts
+├─ public
+│  ├─ s1.png
+│  ├─ s2.png
+│  └─ s3.png
+├─ README.md
+├─ scripts
+│  └─ check-categories.js
+└─ tsconfig.json
+
+```
