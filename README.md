@@ -1,5 +1,5 @@
 🚀 Project Name PCGAY
-คำอธิบายสั้นๆ: เว็บไซต์แอปพลิเคชันที่พัฒนาด้วย Next.js สำหรับ E-commerce
+เว็บไซต์แอปพลิเคชันที่พัฒนาด้วย Next.js
 
 📌 Live Demo: https://pcgay.vercel.app/
 
